@@ -1,0 +1,27 @@
+name: CI / CD Pipeline
+
+
+on:
+  push:
+    branches: [ "main", "develop", "release" ]
+  pull_request:
+    branches: [ "main", "develop", "release" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:    
+    - name: Checkout Repository Coding
+      uses: actions/checkout@v5
+
+    - name: Configuring Java
+      uses: actions/setup-java@v5
+      with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'  
+
+
+    - name: Build with Maven
+      run: mvn clean install  
